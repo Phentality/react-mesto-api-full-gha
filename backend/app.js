@@ -8,6 +8,7 @@ const NotFoundError = require('./errors/notFoundError');
 const router = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
 const cors = require('./middlewares/cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
@@ -29,9 +30,11 @@ app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(requestLogger);
 app.use('/', router);
 // eslint-disable-next-line no-unused-vars
 app.use('*', (req, res, next) => next(new NotFoundError('check API instruction')));
+app.use(errorLogger);
 app.use(errors());
 // eslint-disable-next-line no-unused-vars
 app.use(errorHandler);
