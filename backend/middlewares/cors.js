@@ -1,14 +1,14 @@
 const allowedCors = [
   'https://phentality.nomoredomainsrocks.ru',
   'http://phentality.nomoredomainsrocks.ru',
-  'localhost:3000',
 ];
 
 // eslint-disable-next-line consistent-return
-module.exports = (req, res, next) => {
+const cors = (req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credential', true);
   }
   const { method } = req;
 
@@ -16,8 +16,11 @@ module.exports = (req, res, next) => {
 
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', req.headers);
+    // eslint-disable-next-line no-undef
+    res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.end();
   }
   next();
 };
+
+module.exports = cors;
