@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'api.phentality.nomoredomainsrocks.ru';
 
 const checkRes = (res) => {
   if (res.ok) {

@@ -1,7 +1,6 @@
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
   }
 
   _chechRes = (res) => {
@@ -14,7 +13,6 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       methods: 'GET',
-      headers: this._headers
     })
       .then(this._chechRes);
   }
@@ -23,7 +21,6 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       methods: 'GET',
-      headers: this._headers
     })
       .then(this._chechRes)
   }
@@ -31,7 +28,6 @@ class Api {
   editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
       body: JSON.stringify({
         name: name,
         about: about
@@ -43,7 +39,6 @@ class Api {
   changeAvatar(src) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
       body: JSON.stringify({
         avatar: src
       })
@@ -54,7 +49,6 @@ class Api {
   addCard(place, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
       body: JSON.stringify({
         name: place,
         link: link
@@ -69,7 +63,6 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: this._headers,
       body: JSON.stringify({
         _id: id
       })
@@ -81,7 +74,6 @@ class Api {
     if (isLiked) {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'PUT',
-        headers: this._headers,
         body: JSON.stringify({
           _id: id
         })
@@ -91,7 +83,6 @@ class Api {
     else {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'DELETE',
-        headers: this._headers,
         body: JSON.stringify({
           _id: id
         })
@@ -103,11 +94,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-62',
-  headers: {
-    authorization: 'cdd543ff-2e3f-4e99-8d7a-65b42fe9625f',
-    'Content-Type': 'application/json'
-  }
+  baseUrl: 'api.phentality.nomoredomainsrocks.ru',
 });
 
 export default api;
