@@ -1,6 +1,8 @@
 const allowedCors = [
   'https://phentality.nomoredomainsrocks.ru',
   'http://phentality.nomoredomainsrocks.ru',
+  'https://api.phentality.nomoredomainsrocks.ru',
+  'http://api.phentality.nomoredomainsrocks.ru',
 ];
 
 // eslint-disable-next-line consistent-return
