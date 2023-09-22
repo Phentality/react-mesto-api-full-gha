@@ -30,11 +30,11 @@ app.use(limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(requestLogger());
+app.use(requestLogger);
 app.use('/', router);
 // eslint-disable-next-line no-unused-vars
 app.use('*', (req, res, next) => next(new NotFoundError('check API instruction')));
-app.use(errorLogger());
+app.use(errorLogger);
 app.use(errors());
 // eslint-disable-next-line no-unused-vars
 app.use(errorHandler);
