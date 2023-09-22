@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://phentality.nomoredomainsrocks.ru/signup',
-  'https://www.phentality.nomoredomainsrocks.ru/signup',
+  'https://phentality.nomoredomainsrocks.ru',
+  'http://phentality.nomoredomainsrocks.ru',
   'localhost:3000',
 ];
 
