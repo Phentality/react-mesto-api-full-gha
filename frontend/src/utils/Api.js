@@ -34,7 +34,7 @@ class Api {
       body: JSON.stringify({
         name: name,
         about: about
-      })
+      }),
     })
       .then(this._chechRes);
   }
@@ -50,16 +50,17 @@ class Api {
       .then(this._chechRes);
   }
 
-  addCard(place, link) {
+  addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({
-        name: place,
+        name: name,
         link: link
       })
     })
       .then((res) => {
+        console.log(res);
         return res;
       })
       .then(this._chechRes);

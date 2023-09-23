@@ -37,17 +37,18 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, [loggedIn]);
+  }, []);
 
   React.useEffect(() => {
     api.getUserInfo()
       .then((data) => {
+        console.log(data);
         setCurrentUser(data);
       })
       .catch((err) => {
         console.log(err);
       })
-  }, [loggedIn]);
+  }, []);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -72,7 +73,7 @@ function App() {
   };
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -84,7 +85,7 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c => c._id !== card._id)));
+        setCards((state) => state.filter((c => c !== card._id)));
       })
       .catch((err) => {
         console.log(err);
@@ -99,7 +100,9 @@ function App() {
   }
   const [isLoading, setIsLoading] = React.useState(false);
   function handleUpdateUser(data) {
+    console.log(data);
     function makeRequest() {
+      console.log("datareq", data);
       return api.editProfile(data.name, data.about)
         .then(setCurrentUser);
     }

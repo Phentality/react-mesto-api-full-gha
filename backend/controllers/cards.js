@@ -44,7 +44,7 @@ const createCard = (req, res, next) => {
     .then((card) => res.status(HTTP_STATUS_CREATED).send(card))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Invaliad Data'));
+        return next(new BadRequestError('Invalid Data'));
       }
       return next(err);
     });
