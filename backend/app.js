@@ -17,7 +17,17 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 const { PORT = 3000 } = process.env;
 
 const app = express();
-app.use(cors());
+const allowlist = ['http://localhost:3000', 'https://phentality.nomoredomainsrocks.ru'];
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true };
+  } else {
+    corsOptions = { origin: false };
+  }
+  callback(null, corsOptions);
+};
+app.use(cors(corsOptionsDelegate));
 app.use(helmet());
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
