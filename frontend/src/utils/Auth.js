@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://phentality.nomoredomainsrocks.ru/api';
+export const BASE_URL = 'https://api.phentality.nomoredomainsrocks.ru';
 
 const checkRes = (res) => {
   if (res.ok) {
@@ -21,6 +21,7 @@ export const register = (email, password) => {
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
