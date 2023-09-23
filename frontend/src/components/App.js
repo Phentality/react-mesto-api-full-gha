@@ -37,7 +37,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+  }, [loggedIn]);
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -47,7 +47,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+  }, [loggedIn]);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
