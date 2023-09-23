@@ -162,10 +162,6 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    document.cookie('jwt', localStorage.getItem('jwt'));
-  }, []);
-
-  React.useEffect(() => {
     setEmail(localStorage.getItem('email'));
   }, []);
 
