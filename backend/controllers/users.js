@@ -37,7 +37,7 @@ const getUserById = (req, res, next) => {
     });
 };
 function updateModel(dat, req, res, next) {
-  userModel.findByIdAndUpdate(req.user.id, dat, {
+  userModel.findByIdAndUpdate(req.user._id, dat, {
     new: true,
     runValidators: true,
   })
