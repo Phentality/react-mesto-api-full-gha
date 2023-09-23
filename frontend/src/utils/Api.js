@@ -13,6 +13,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       methods: 'GET',
+      credentials: 'include',
     })
       .then(this._chechRes);
   }
@@ -21,6 +22,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       methods: 'GET',
+      credentials: 'include',
     })
       .then(this._chechRes)
   }
@@ -28,6 +30,7 @@ class Api {
   editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         about: about
@@ -39,6 +42,7 @@ class Api {
   changeAvatar(src) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({
         avatar: src
       })
@@ -49,6 +53,7 @@ class Api {
   addCard(place, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify({
         name: place,
         link: link
@@ -63,6 +68,7 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
       body: JSON.stringify({
         _id: id
       })
@@ -74,6 +80,7 @@ class Api {
     if (isLiked) {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'PUT',
+        credentials: 'include',
         body: JSON.stringify({
           _id: id
         })
@@ -83,6 +90,7 @@ class Api {
     else {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'DELETE',
+        credentials: 'include',
         body: JSON.stringify({
           _id: id
         })
@@ -94,7 +102,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.phentality.nomoredomainsrocks.ru',
+  baseUrl: 'http://localhost:3001', //https://api.phentality.nomoredomainsrocks.ru
 });
 
 export default api;
