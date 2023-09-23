@@ -25,6 +25,8 @@ export const authorize = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
+    secure: true,
     body: JSON.stringify({ email, password })
   })
     .then(checkRes)
