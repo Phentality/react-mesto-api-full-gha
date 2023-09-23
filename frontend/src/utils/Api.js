@@ -94,7 +94,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.phentality.nomoredomainsrocks.ru',
+  baseUrl: 'https://phentality.nomoredomainsrocks.ru/api',
 });
 
 export default api;
