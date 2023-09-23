@@ -18,16 +18,20 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 const allowlist = ['http://localhost:3000', 'https://phentality.nomoredomainsrocks.ru'];
-const corsOptionsDelegate = function (req, callback) {
-  let corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true };
-  } else {
-    corsOptions = { origin: false };
-  }
-  callback(null, corsOptions);
+const corsOptions = {
+  origin(origin, callback) {
+    if (allowlist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+  optionsSuccessStatus: 200,
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'device-remember-token', 'Access-Control-Allow-Origin', 'Origin', 'Accept'],
 };
-app.use(cors(corsOptionsDelegate));
+app.use(cors(corsOptions));
 app.use(helmet());
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
