@@ -9,6 +9,6 @@
 
 IP-адрес 158.160.24.177
 
-Frontend https://phentality.nomoredomainsrocks.ru/signin
+Frontend https://phentality.nomoredomainsrocks.ru
 
-Backend https://api.phentality.nomoredomainsrocks.ru/signin
+Backend https://api.phentality.nomoredomainsrocks.ru
