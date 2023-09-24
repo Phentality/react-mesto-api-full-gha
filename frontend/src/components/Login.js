@@ -26,7 +26,6 @@ function Login(props) {
         Auth.authorize(formValue.email, formValue.password).then((data) => {
             if (data.token) {
                 localStorage.setItem('jwt', data.token);
-                // cookie.set('jwt', data.token,{ expires: 900000 });
                 setFormValue({ email: '', password: '' });
                 navigate('/', { replace: true });
                 localStorage.setItem('email', formValue.email);
