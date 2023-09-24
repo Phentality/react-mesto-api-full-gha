@@ -42,7 +42,6 @@ function App() {
   React.useEffect(() => {
     api.getUserInfo()
       .then((data) => {
-        console.log(data);
         setCurrentUser(data);
       })
       .catch((err) => {

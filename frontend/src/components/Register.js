@@ -18,7 +18,8 @@ function Register(props) {
     }
     const handleSumbit = (e) => {
         e.preventDefault();
-        Auth.register(formValue.email, formValue.password).then(() => {
+        const { email, password } = formValue;
+        Auth.register(email, password).then(() => {
             props.openAffirmativePopup();
         })
             .catch((err) => {

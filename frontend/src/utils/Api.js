@@ -114,7 +114,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.phentality.nomoredomainsrocks.ru'
+  baseUrl: 'http://localhost:3001'
 });
 
 export default api;

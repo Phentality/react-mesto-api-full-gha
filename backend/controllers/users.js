@@ -12,7 +12,7 @@ const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
 const userModel = require('../models/user');
 
-const { SALT_ROUNDS = 8, JWT_SECRET = 'secret' } = process.env;
+const { JWT_SECRET = 'secret' } = process.env;
 
 const getUsers = (req, res, next) => {
   userModel.find({})
@@ -78,7 +78,7 @@ const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  bcrypt.hash(password, SALT_ROUNDS, (error, hash) => userModel.create({
+  bcrypt.hash(password, 10, (error, hash) => userModel.create({
     name, about, avatar, email, password: hash,
   })
     .then(() => res.status(HTTP_STATUS_CREATED).send({
