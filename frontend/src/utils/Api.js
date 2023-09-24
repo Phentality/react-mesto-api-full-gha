@@ -36,7 +36,7 @@ class Api {
         about: about
       }),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json'
       },
     })
       .then(this._chechRes);
@@ -50,7 +50,7 @@ class Api {
         avatar: src
       }),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json'
       },
     })
       .then(this._chechRes);
@@ -65,7 +65,7 @@ class Api {
         link: link
       }),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json'
       },
     })
       .then((res) => {
@@ -82,7 +82,7 @@ class Api {
         _id: id
       }),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json'
       },
     })
       .then(this._chechRes);
