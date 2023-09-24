@@ -35,6 +35,9 @@ class Api {
         name: name,
         about: about
       }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
     })
       .then(this._chechRes);
   }
@@ -45,7 +48,10 @@ class Api {
       credentials: 'include',
       body: JSON.stringify({
         avatar: src
-      })
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
     })
       .then(this._chechRes);
   }
@@ -57,10 +63,12 @@ class Api {
       body: JSON.stringify({
         name: name,
         link: link
-      })
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
     })
       .then((res) => {
-        console.log(res);
         return res;
       })
       .then(this._chechRes);
@@ -72,7 +80,10 @@ class Api {
       credentials: 'include',
       body: JSON.stringify({
         _id: id
-      })
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
     })
       .then(this._chechRes);
   }
@@ -103,7 +114,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:3001', //https://api.phentality.nomoredomainsrocks.ru
+  baseUrl: 'https://api.phentality.nomoredomainsrocks.ru'
 });
 
 export default api;

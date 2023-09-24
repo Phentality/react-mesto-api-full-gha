@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'https://api.phentality.nomoredomainsrocks.ru';
 
 const checkRes = (res) => {
   if (res.ok) {

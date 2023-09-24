@@ -2,6 +2,7 @@ const {
   HTTP_STATUS_OK,
   HTTP_STATUS_CREATED,
 } = require('http2').constants;
+require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -11,8 +12,7 @@ const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
 const userModel = require('../models/user');
 
-const saltRounds = 10;
-const jwtSecret = 'secret';
+const { SALT_ROUNDS = 8, JWT_SECRET = 'secret' } = process.env;
 
 const getUsers = (req, res, next) => {
   userModel.find({})
@@ -37,12 +37,12 @@ const getUserById = (req, res, next) => {
     });
 };
 function updateModel(dat, req, res, next) {
-  userModel.findByIdAndUpdate(req.user._id, dat, {
+  return userModel.findByIdAndUpdate(req.user.id, dat, {
     new: true,
     runValidators: true,
   })
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
@@ -78,7 +78,7 @@ const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  bcrypt.hash(password, saltRounds, (error, hash) => userModel.create({
+  bcrypt.hash(password, SALT_ROUNDS, (error, hash) => userModel.create({
     name, about, avatar, email, password: hash,
   })
     .then(() => res.status(HTTP_STATUS_CREATED).send({
@@ -114,7 +114,7 @@ const login = (req, res, next) => {
         const token = jwt.sign({
           exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7),
           id: user._id,
-        }, jwtSecret);
+        }, JWT_SECRET);
         return res.status(HTTP_STATUS_OK).cookie('jwt', token, { maxAge: 900000, httpOnly: true }).send({ token });
       });
     })

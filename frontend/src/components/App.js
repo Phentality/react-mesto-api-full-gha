@@ -85,7 +85,7 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c => c !== card._id)));
+        setCards((state) => state.filter((c => c._id !== card._id)));
       })
       .catch((err) => {
         console.log(err);
@@ -102,9 +102,9 @@ function App() {
   function handleUpdateUser(data) {
     console.log(data);
     function makeRequest() {
-      console.log("datareq", data);
       return api.editProfile(data.name, data.about)
-        .then(setCurrentUser);
+        .then(console.log(data))
+        .then(setCurrentUser)
     }
     handleSubmit(makeRequest);
   }

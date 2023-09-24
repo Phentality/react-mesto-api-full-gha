@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const helmet = require('helmet');
 const { rateLimit } = require('express-rate-limit');
 const mongoose = require('mongoose');
@@ -14,6 +15,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
 });
 
+// eslint-disable-next-line no-unused-expressions
+process.env.NODE_ENV !== 'production';
 const { PORT = 3001 } = process.env;
 
 const app = express();
@@ -29,7 +32,7 @@ const corsOptions = {
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
   optionsSuccessStatus: 200,
   credentials: true,
-  allowedHeaders: ['Content-Type', 'application/json', 'Authorization', 'X-Requested-With', 'device-remember-token', 'Access-Control-Allow-Origin', 'Origin', 'Accept'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'device-remember-token', 'Access-Control-Allow-Origin', 'Origin', 'Accept'],
 };
 app.use(cors(corsOptions));
 app.use(helmet());
@@ -41,9 +44,9 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(requestLogger);
 app.use('/', router);
 // eslint-disable-next-line no-unused-vars
