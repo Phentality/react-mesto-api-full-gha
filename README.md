@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP 158.160.24.177
+IP 158.160.24.177 
 
 Frontend https://phentality.nomoredomainsrocks.ru
 
