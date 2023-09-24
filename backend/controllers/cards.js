@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cardModel = require('../models/card');
 const BadRequestError = require('../errors/badRequestError');
 const NotFoundError = require('../errors/notFoundError');
+const ForbiddenError = require('../errors/forbiddenError');
 
 const getCards = (req, res, next) => {
   cardModel.find({})
@@ -15,11 +16,17 @@ const getCards = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   const cardID = req.params.id;
+  const ownerID = req.user.id;
   return cardModel.findById(cardID).orFail()
-    .then(() => cardModel.findByIdAndRemove(cardID)
-      .then((card) => {
-        res.status(HTTP_STATUS_OK).send({ data: card });
-      }))
+    .then((data) => {
+      if (!data.owner.equals(ownerID)) {
+        throw new ForbiddenError('That card not yours');
+      }
+      return cardModel.findByIdAndRemove(cardID)
+        .then((card) => {
+          res.status(HTTP_STATUS_OK).send({ data: card });
+        });
+    })
     .catch((err) => {
       if (err instanceof mongoose.Error.DocumentNotFoundError) {
         return next(new NotFoundError('Card not found'));
