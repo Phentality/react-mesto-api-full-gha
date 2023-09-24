@@ -66,12 +66,7 @@ const getUserInfo = (req, res, next) => {
     .then((user) => {
       res.send(user);
     })
-    .catch((err) => {
-      if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Invalid Data'));
-      }
-      return next(err);
-    });
+    .catch((err) => next(err));
 };
 
 const createUser = (req, res, next) => {
@@ -97,9 +92,6 @@ const createUser = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return next(new BadRequestError('The fields email and password must be filled in'));
-  }
   return userModel.findOne({ email }).select('+password')
     // eslint-disable-next-line consistent-return
     .then((user) => {

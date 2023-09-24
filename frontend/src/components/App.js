@@ -5,7 +5,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import InfoTooltip from './InfoTooltip';
 import React from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -14,7 +14,6 @@ import Login from './Login';
 import Register from './Register';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup';
-import * as Auth from '../utils/Auth.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -99,10 +98,8 @@ function App() {
   }
   const [isLoading, setIsLoading] = React.useState(false);
   function handleUpdateUser(data) {
-    console.log(data);
     function makeRequest() {
       return api.editProfile(data.name, data.about)
-        .then(console.log(data))
         .then(setCurrentUser)
     }
     handleSubmit(makeRequest);
@@ -142,26 +139,6 @@ function App() {
     })
     setIsInfoPopupOpen(true);
   }
-
-  const navigate = useNavigate();
-
-  const tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      if (jwt) {
-        Auth.checkToken(jwt).then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            navigate('/', { replace: true });
-          }
-        })
-      }
-    }
-  }
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, []);
 
   React.useEffect(() => {
     setEmail(localStorage.getItem('email'));
