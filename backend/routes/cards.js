@@ -3,7 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 const {
   getCards, createCard, deleteCard, setLike, deleteLike,
 } = require('../controllers/cards');
-const { regex } = require('../utils/constants');
+const { regularLinkValue } = require('../utils/constants');
 
 router.get('/', getCards);
 router.delete('/:id', celebrate({
@@ -14,7 +14,7 @@ router.delete('/:id', celebrate({
 router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().min(2).pattern(regex),
+    link: Joi.string().required().min(2).pattern(regularLinkValue),
   }),
 }), createCard);
 router.put('/:cardId/likes', celebrate({

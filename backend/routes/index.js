@@ -5,7 +5,7 @@ const cardRouter = require('./cards');
 const {
   createUser, login,
 } = require('../controllers/users');
-const { regex } = require('../utils/constants');
+const { regularLinkValue } = require('../utils/constants');
 const auth = require('../middlewares/auth');
 
 router.get('/crash-test', () => {
@@ -23,7 +23,7 @@ router.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().min(2).pattern(regex),
+    avatar: Joi.string().min(2).pattern(regularLinkValue),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
